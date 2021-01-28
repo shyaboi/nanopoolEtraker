@@ -65,4 +65,4 @@ setInterval(() => {
   cDataGet();
   ydH.push(stamp);
   muhCrypto.update();
-}, 5000);
+}, 20000);
