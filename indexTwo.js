@@ -1,13 +1,13 @@
 var bar1Data = []
-let miners = ['sleepy', 'grumpy', 'doc', 'dingus', 'larry','dinus']
+let miners = []
 const theseBars = new Chart(document.getElementById("barChart"), {
     type: 'bar',
     data: {
       labels: miners,
       datasets: [
         {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          label: "HashRate of Rigs",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#C3F53C", "#FF5000", "#62A5ED", "#0B600B"],
           data: bar1Data
         }
       ]
@@ -27,7 +27,7 @@ const theseBars = new Chart(document.getElementById("barChart"), {
       legend: { display: false },
       title: {
         display: true,
-        text: 'Predicted world population (millions) in 2050'
+        text: "HashRate of Rigs"
       }
     }
 });
@@ -53,8 +53,9 @@ const fetchy = async (add)=> {
     return data;
 }
 var workks = []
+var workksH = []
 var mBois = []
-const makeEl = (b,m)=> {
+const makeEl = async (b,m)=> {
     fetchy("0x9a024dca12158e8ba0b45bb9d4ae1b1324c38861")
     .then(data => {
         for (const i of data.data) {
@@ -89,23 +90,48 @@ const makeEl = (b,m)=> {
     // console.log(el)
 }
 
-const upHash = (b)=> {
+const fHash = (b)=> {
+    fetchy("0x9a024dca12158e8ba0b45bb9d4ae1b1324c38861")
+    .then(data => {
+        let el = []
+        if (!workksH[0]) {
+            
+        for (const i of data.data) {
+            // console.log(i)
+            workksH.push(i)
+        }
+        for (const i of workksH) {
+            el.push(i.hashrate)
+        }
+        for (let i = 0; i < el.length; i++) {
+            // x = Math.floor(Math.random()*1000);
+            b[i] = el[i]
+        }
+
+        console.log(el)
+        theseBars.update()
+        workksH = []
+        el = []
+        console.log(el)
+        setTimeout(() => {
+            fHash(bar1Data)
+            theseBars.update()
+
+        }, 5000);
+    }
+    else{
+        console.log(el)
+    }
+    })
+}
+
+// const upHash = (b)=> {
    
 
-    let el = []
-    for (const i of workks) {
-        el.push(i.hashrate)
-    }
-console.log(el)
-    for (let i = 0; i < el.length; i++) {
-        // x = Math.floor(Math.random()*1000);
-        b[i] = el[i]
-    }
-    theseBars.update()
-}
-setInterval(() => {
-    upHash(bar1Data)
-}, 5000);
+    
+// }
+fHash(bar1Data)
+let loopy = setInterval(fHash(bar1Data), 5000);
 
     makeEl(bar1Data,miners)
 
