@@ -1,9 +1,9 @@
 var bar1Data = []
-
+let miners = ['sleepy', 'grumpy', 'doc', 'dingus', 'larry','dinus']
 const theseBars = new Chart(document.getElementById("barChart"), {
     type: 'bar',
     data: {
-      labels: ["Africa", "Other", "3rd Thing", "Mor"],
+      labels: miners,
       datasets: [
         {
           label: "Population (millions)",
@@ -47,30 +47,51 @@ const theseBars = new Chart(document.getElementById("barChart"), {
    
 //     theseBars.update();
 // }
-const makeEl = (b)=> {
-    let el = []
-    for (let i = 0; i < 4; i++) {
-        x = Math.floor(Math.random()*1000);
-        const ele = b[i];
-        b[i] = x
+const fetchy = async (add)=> {
+    let res  = await fetch(`https://api.nanopool.org/v1/eth/reportedhashrates/${add}`);
+    let data = await res.json()
+    return data;
+}
+var workks = []
+var mBois = []
+const makeEl = (b,m)=> {
+    fetchy("0x9a024dca12158e8ba0b45bb9d4ae1b1324c38861")
+    .then(data => {
+        for (const i of data.data) {
+            // console.log(i)
+            workks.push(i)
+        }
+        for (const i of workks) {
+            mBois.push(i.worker)
+        }
+    })
+    console.log(mBois)
+
+    let el = [222,333,444,555,333,333,444,555]
+
+
+    for (let i = 0; i < el.length; i++) {
+        // x = Math.floor(Math.random()*1000);
+        b[i] = el[i]
     }
-    for (let i = 0; i < b.length; i++) {
+    setTimeout(() => {
         
-        el.push(b[i]);
-    }
-    console.log(el)
+        for (let i = 0; i < mBois.length; i++) {
+            // x = Math.floor(Math.random()*1000);
+            m[i] = mBois[i]
+            console.log(m[i])
+            theseBars.update();
+        }
+    }, 1000);
+
+
+    miners = mBois
+    // console.log(el)
 }
 
-const thing = (b)=>{
 
-    theseBars.update();
-        
-}
-setInterval(() => {
-    makeEl(bar1Data)
-    thing(bar1Data)
+    makeEl(bar1Data,miners)
 
-}, 1000);
 
 
 
