@@ -15,7 +15,7 @@ const fetcher = async ()=> {
     setTimeout(() => {
         
         moneyMe.pop()
-    }, 9700);
+    }, 19400);
 }
 
 
@@ -38,4 +38,4 @@ const moneyChart = new Chart(document.getElementById("pie-chart"), {
     }
 });
 
-const lupe = setInterval(fetcher, 5000)
+const lupe = setInterval(fetcher, 10000)
