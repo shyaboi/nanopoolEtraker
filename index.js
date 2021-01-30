@@ -117,7 +117,7 @@ var updateSel = document.getElementById("update");
 let selection = 5000;
 let currentSelection = 5000;
 const setSel = ()=> {
-  selection = (updateSel.options[updateSel.selectedIndex].text)*1000;
+  selection = (updateSel.options[updateSel.selectedIndex].value)*1000;
   // currentSelection = selection
 }
 
