@@ -117,7 +117,7 @@ const fHash = (b)=> {
             fHash(bar1Data)
             theseBars.update()
 
-        }, 5000);
+        }, 10000);
     }
     else{
         console.log(el)
@@ -131,7 +131,7 @@ const fHash = (b)=> {
     
 // }
 fHash(bar1Data)
-let loopy = setInterval(fHash(bar1Data), 5000);
+let loopy = setInterval(fHash(bar1Data), 10000);
 
     makeEl(bar1Data,miners)
 
