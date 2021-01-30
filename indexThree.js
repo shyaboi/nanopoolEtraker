@@ -26,7 +26,7 @@ const moneyChart = new Chart(document.getElementById("pie-chart"), {
       labels: ["Previous Value", "Current Value"],
       datasets: [{
         label: "Population (millions)",
-        backgroundColor: ["#01D705","#100A20"],
+        backgroundColor: ["#01D705","#100A20", "#FDCA0C"],
         data: moneyMe
       }]
     },
