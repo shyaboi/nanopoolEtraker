@@ -8,7 +8,12 @@ let grHash;
 let gMoneyPH;
 let gMoneyPD;
 
-let cBal = 1;
+let cBal = 0;
+let cBalChange = 0
+let cTBalChange = 0
+let title = document.getElementById("ethMoney")
+let change = document.getElementById("ethMoneyChange")
+
 
 let muhCrypto = new Chart(document.getElementById("line-chart"), {
   type: "line",
@@ -23,7 +28,7 @@ let muhCrypto = new Chart(document.getElementById("line-chart"), {
       },
       {
         data: xdR,
-        label: "Current Hashrate",
+        label: "Calculated Hashrate",
         borderColor: "#8e5ea2",
         fill: false,
       },
@@ -38,7 +43,7 @@ let muhCrypto = new Chart(document.getElementById("line-chart"), {
   options: {
     title: {
       display: true,
-      text: `This many ETH ~ ${cBal}`,
+      text: `Hashrates`,
     },
   },
 });
@@ -53,11 +58,25 @@ const cDataGet = () => {
   let pData = JSON.parse(data);
   let currentBalance = pData.data.balance;
   let cHash = pData.data.hashrate;
+  
   gcHash = cHash
+  cBalChange = (currentBalance - cBal)
+  if (cBalChange === 0) {
+      // console.log(cBalChange)
+      
+    }else{ 
+
+    let tc = cBalChange + cTBalChange
+    change.innerHTML = '+'+tc
+    console.log(tc)
+  }
   cBal = currentBalance;
-  muhCrypto.options.title.text = `This many ETH ~ ${cBal}\n $ Money per Day $${gMoneyPD} ~ Hour $${gMoneyPH}`;
+  title.innerHTML = `Miner Balance ~ <span style="color: grey;">ETH</span><span style="color: green;">${cBal}</span>\n perDay  <span style="color: green;">$${gMoneyPD}</span> ~ perHour <span style="color: green;">$${gMoneyPH}</span>`
   xdR.push(cHash);
 };
+
+
+
 const rDataGet = () => {
   req.open(
     "GET",
@@ -72,6 +91,9 @@ const rDataGet = () => {
   console.log();
   xdH.push(harsh);
 };
+
+
+
 
 const makeMoney = () => {
     let tHash = (gcHash + grHash)/2
@@ -90,13 +112,35 @@ const makeMoney = () => {
     gMoneyPD = mPerDay.toFixed(2);
 };
 
-setInterval(() => {
-  var ct = new Date();
-  let stamp = ct.toISOString();
-  let stampSub = stamp.substring(0, stamp.length - 8);
-  rDataGet();
-  cDataGet();
-  ydH.push(stampSub);
-  muhCrypto.update();
-  makeMoney();
-}, 45000);
+
+var updateSel = document.getElementById("update");
+let selection = 5000;
+let currentSelection = 5000;
+const setSel = ()=> {
+  selection = (updateSel.options[updateSel.selectedIndex].text)*1000;
+  // currentSelection = selection
+}
+
+const doLoop = ()=> {
+  setSel()
+  if (selection == currentSelection) {
+    console.log(selection, currentSelection)
+    var ct = new Date();
+    let stamp = ct.toISOString();
+    let stampSub = stamp.substring(0, stamp.length - 8);
+    rDataGet();
+    cDataGet();
+    ydH.push(stampSub);
+    muhCrypto.update();
+    makeMoney();
+  }else{
+    console.log(selection, currentSelection)
+
+    clearInterval(looper)
+    currentSelection = selection
+    looper = setInterval(doLoop, selection)
+  }
+
+}
+
+let looper = setInterval(doLoop, selection);
