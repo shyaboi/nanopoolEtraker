@@ -18,7 +18,7 @@ const theseBars = new Chart(document.getElementById("barChart"), {
                 display: true,
                 ticks: {
                     suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-                    suggestedMax: 1000,    // minimum will be 0, unless there is a lower value.
+                    suggestedMax: 40,    // minimum will be 0, unless there is a lower value.
                     // OR //
                     beginAtZero: true   // minimum value will be 0.
                 }
@@ -65,21 +65,21 @@ const makeEl = (b,m)=> {
             mBois.push(i.worker)
         }
     })
-    console.log(mBois)
+    // console.log(mBois)
 
-    let el = [222,333,444,555,333,333,444,555]
+    // let el = [222,333,444,555,333,333,444,555]
 
 
-    for (let i = 0; i < el.length; i++) {
-        // x = Math.floor(Math.random()*1000);
-        b[i] = el[i]
-    }
+    // for (let i = 0; i < el.length; i++) {
+    //     // x = Math.floor(Math.random()*1000);
+    //     b[i] = el[i]
+    // }
     setTimeout(() => {
         
         for (let i = 0; i < mBois.length; i++) {
             // x = Math.floor(Math.random()*1000);
             m[i] = mBois[i]
-            console.log(m[i])
+            // console.log(m[i])
             theseBars.update();
         }
     }, 1000);
@@ -89,6 +89,23 @@ const makeEl = (b,m)=> {
     // console.log(el)
 }
 
+const upHash = (b)=> {
+   
+
+    let el = []
+    for (const i of workks) {
+        el.push(i.hashrate)
+    }
+console.log(el)
+    for (let i = 0; i < el.length; i++) {
+        // x = Math.floor(Math.random()*1000);
+        b[i] = el[i]
+    }
+    theseBars.update()
+}
+setInterval(() => {
+    upHash(bar1Data)
+}, 5000);
 
     makeEl(bar1Data,miners)
 
