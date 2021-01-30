@@ -68,10 +68,10 @@ const cDataGet = () => {
 
     let tc = cBalChange + cTBalChange
     change.innerHTML = '+'+tc
-    console.log(tc)
+    // console.log(tc)
   }
   cBal = currentBalance;
-  title.innerHTML = `Miner Balance ~ <span style="color: grey;">ETH</span><span style="color: green;">${cBal}</span>\n perDay  <span style="color: green;">$${gMoneyPD}</span> ~ perHour <span style="color: green;">$${gMoneyPH}</span>`
+  title.innerHTML = `Miner Balance ~ <span style="color: grey;">ETH</span><span style="color: green;" id="mon" >${cBal}</span>\n perDay  <spanstyle="color: green;">$${gMoneyPD}</span> ~ perHour <span style="color: green;">$${gMoneyPH}</span>`
   xdR.push(cHash);
 };
 
@@ -88,7 +88,6 @@ const rDataGet = () => {
   let rpData = JSON.parse(rData);
   let harsh = rpData.data;
   grHash = harsh
-  console.log();
   xdH.push(harsh);
 };
 
@@ -124,7 +123,7 @@ const setSel = ()=> {
 const doLoop = ()=> {
   setSel()
   if (selection == currentSelection) {
-    console.log(selection, currentSelection)
+    // console.log(selection, currentSelection)
     var ct = new Date();
     let stamp = ct.toISOString();
     let stampSub = stamp.substring(0, stamp.length - 8);
@@ -134,7 +133,7 @@ const doLoop = ()=> {
     muhCrypto.update();
     makeMoney();
   }else{
-    console.log(selection, currentSelection)
+    // console.log(selection, currentSelection)
 
     clearInterval(looper)
     currentSelection = selection

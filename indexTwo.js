@@ -83,7 +83,7 @@ const makeEl = async (b,m)=> {
             // console.log(m[i])
             theseBars.update();
         }
-    }, 1000);
+    }, 1500);
 
 
     miners = mBois
@@ -108,11 +108,11 @@ const fHash = (b)=> {
             b[i] = el[i]
         }
 
-        console.log(el)
+        // console.log(el)
         theseBars.update()
         workksH = []
         el = []
-        console.log(el)
+        // console.log(el)
         setTimeout(() => {
             fHash(bar1Data)
             theseBars.update()
@@ -120,83 +120,12 @@ const fHash = (b)=> {
         }, 10000);
     }
     else{
-        console.log(el)
+        // console.log(el)
     }
     })
 }
 
-// const upHash = (b)=> {
-   
-
-    
-// }
 fHash(bar1Data)
 let loopy = setInterval(fHash(bar1Data), 10000);
 
     makeEl(bar1Data,miners)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-new Chart(document.getElementById("barChart2"), {
-    type: 'bar',
-    data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
-      }
-    }
-});
